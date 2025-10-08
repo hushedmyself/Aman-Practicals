@@ -1,0 +1,141 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const AmanApp());
+
+class AmanApp extends StatelessWidget {
+  const AmanApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Form Validation Demo',
+      home: const SignUpPage(),
+    );
+  }
+}
+
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _nameCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
+  final _passwordCtrl = TextEditingController();
+
+ 
+  final _emailRegex =
+      RegExp(r'^[\w\.\-]+@([\w\-]+\.)+[\w\-]{2,}$'); // basic pattern
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) return;
+
+    // Access values as needed (e.g., send to backend)
+    final name = _nameCtrl.text.trim();
+    final email = _emailCtrl.text.trim();
+    final masked = '*' * _passwordCtrl.text.length;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Submitted: $name, $email, $masked')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Sign Up!!!!!')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                // Name
+                TextFormField(
+                  controller: _nameCtrl,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    labelText: 'Aman',
+                    hintText: 'Enter full name',
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    final v = value?.trim() ?? '';
+                    final nameRegex = RegExp(r'^[a-zA-Z\s]+$'); // letters and spaces only
+                    if (v.isEmpty) return 'Name is required';
+                    if (v.length < 3) return 'Name must be at least 3 characters';
+                    if (!nameRegex.hasMatch(v)) return 'Name can only contain letters and spaces';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                // Email
+                TextFormField(
+                  controller: _emailCtrl,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'name@example.com',
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    final v = value?.trim() ?? '';
+                    if (v.isEmpty) return 'Email is required';
+                    // To use package:
+                    // if (!EmailValidator.validate(v)) return 'Enter a valid email';
+                    if (!_emailRegex.hasMatch(v)) return 'Enter a valid email';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                // Password
+                TextFormField(
+                  controller: _passwordCtrl,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'At least 8 characters',
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    final v = value ?? '';
+                    if (v.isEmpty) return 'Password is required';
+                    if (v.length < 8) return 'Password must be at least 8 characters';
+                    return null;
+                  },
+                  onFieldSubmitted: (_) => _submit(),
+                ),
+                const SizedBox(height: 20),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _submit,
+                    child: const Text('Create Account'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
