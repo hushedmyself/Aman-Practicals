@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const AmanApp());
+
+class Product {
+  final String name;
+  final double price;
+  const Product(this.name, this.price);
+}
+
+class AmanApp extends StatelessWidget {
+  const AmanApp({super.key});
+
+  static const products = <Product>[
+    Product('Laptop', 999.99),
+    Product('Headphones', 199.99),
+    Product('Smartphone', 799.00),
+    Product('Keyboard', 89.50),
+    Product('Mouse', 49.99),
+    Product('Monitor', 229.99),
+    Product('USB-C Hub', 39.99),
+    Product('External SSD', 129.00),
+    Product('Webcam', 59.99),
+    Product('Microphone', 149.00),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Aman: Products',
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Products')),
+        body: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final p = products[index];
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: ListTile(
+                title: Text(p.name),
+                subtitle: Text('₹${p.price.toStringAsFixed(2)}'),
+                // Alternatively, show price on the right:
+                // trailing: Text('₹${p.price.toStringAsFixed(2)}'),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
