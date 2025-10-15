@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(DarkModeApp());
+  runApp(DarkModeByAman());
 }
 
-class DarkModeApp extends StatefulWidget {
+class DarkModeAppByAman extends StatefulWidget {
   @override
-  _DarkModeAppState createState() => _DarkModeAppState();
+  _DarkModeAppState createState() => _DarkModeAppByAmanState();
 }
 
-class _DarkModeAppState extends State<DarkModeApp> {
+class _DarkModeAppByAmanState extends State<DarkModeAppByAman> {
   bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Dark Mode Demo",
+      title: "Dark Mode By Aman",
       debugShowCheckedModeBanner: false,
       theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
