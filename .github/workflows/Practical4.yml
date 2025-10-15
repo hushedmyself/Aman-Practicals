@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(TabApp());
+  runApp(AmanTabApp());
 }
 
-class TabApp extends StatelessWidget {
+class AmanTabApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "TabBar Demo",
+      title: "TabBar by Aman",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: TabHomePage(),
