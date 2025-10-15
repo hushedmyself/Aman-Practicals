@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(TabApp());
+}
+
+class TabApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "TabBar Demo",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: TabHomePage(),
+    );
+  }
+}
+
+class TabHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3, // Number of tabs
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("TabBar Example"),
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.home), text: "Home"),
+              Tab(icon: Icon(Icons.search), text: "Search"),
+              Tab(icon: Icon(Icons.person), text: "Profile"),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            // Home Tab
+            Center(
+              child: Text(
+                "Welcome to Home",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            // Search Tab
+            Center(
+              child: Text(
+                "Search Products Here",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            // Profile Tab
+            Center(
+              child: Text(
+                "User Profile",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
