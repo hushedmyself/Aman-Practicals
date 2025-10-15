@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(DarkModeByAman());
+  runApp(DarkModeAppByAman());
 }
 
 class DarkModeAppByAman extends StatefulWidget {
   @override
-  _DarkModeAppState createState() => _DarkModeAppByAmanState();
+  _DarkModeAppByAmanState createState() => _DarkModeAppByAmanState();
 }
 
 class _DarkModeAppByAmanState extends State<DarkModeAppByAman> {
